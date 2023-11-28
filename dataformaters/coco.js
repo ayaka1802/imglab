@@ -92,7 +92,7 @@ var cocoFormater = {
             categories : []
         }
         var images = Object.keys(labellingData);
-
+        var annotationId = 1
         //Add images
         for(var image_i = 0 ; image_i < images.length; image_i++){
             var imageName = images [image_i];
@@ -121,8 +121,8 @@ var cocoFormater = {
                     area = shape.points[2] * shape.points[2] * Math.PI;
                 }else if(shape.type === "rect"){
                     points = [
-                        shape.points[0], shape.points[1], 
-                        shape.points[0]+shape.points[2], shape.points[1], 
+                        shape.points[0], shape.points[1],
+                        shape.points[0]+shape.points[2], shape.points[1],
                         shape.points[0]+shape.points[2], shape.points[1] + shape.points[3],
                         shape.points[0], shape.points[1] + shape.points[3]
                     ];
@@ -138,9 +138,10 @@ var cocoFormater = {
                     "image_id": image_i+1,
                     "bbox": [shape.bbox.x, shape.bbox.y, shape.bbox.width, shape.bbox.height],
                     "category_id": categories.indexOf(shape.category) + 1,
-                    "id": shape_i+1,
+                    "id": annotationId,
                     "ignore": 0
                 });
+                annotationId++
 
             }
         }
